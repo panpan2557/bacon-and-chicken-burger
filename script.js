@@ -1,6 +1,8 @@
 // setup marker svg
 let targetSVG = "M9,0C4.029,0,0,4.029,0,9s4.029,9,9,9s9-4.029,9-9S13.971,0,9,0z M9,15.93 c-3.83,0-6.93-3.1-6.93-6.93S5.17,2.07,9,2.07s6.93,3.1,6.93,6.93S12.83,15.93,9,15.93 M12.5,9c0,1.933-1.567,3.5-3.5,3.5S5.5,10.933,5.5,9S7.067,5.5,9,5.5 S12.5,7.067,12.5,9z";
 
+let YEAR = 0;
+
 let map = AmCharts.makeChart( "chartdiv", {
   "type": "map",
   "theme": "light",
@@ -197,6 +199,15 @@ function animateColor(el, color) {
   }, 400)
 }
 
+function animateYearColor(el, color) {
+  el.animate({
+    borderBottomColor: color,
+    borderLeftColor: color,
+    borderRightColor: color,
+    borderTopColor: color
+  }, 150)
+}
+
 // setup event handler
 let infoPanel = $('#info-panel')
 let mapPanel = $('#map-panel')
@@ -206,6 +217,9 @@ let mapOpac = 0.5
 let overlayOpac = 0
 let grey = '#6c757d'
 let green = '#28a745'
+const black = '#00000'
+const orange = 'orange'
+
 toggleButton.click(function() {
   if (!isOverlayedToggle) {
     overlayOpac = 0
@@ -401,3 +415,33 @@ testButton.click(function() {
   updateStatsMap()
 })
 
+$(document).ready(function(){
+  generateTimelineFromYear(1997,2018)
+  $('span.date').click(function(){
+    // $('#'+YEAR).removeClass('selected');
+    // $(this).addClass('selected');
+    idd = $(this).attr('id');
+    YEAR = idd.slice(6);
+    console.log(idd);
+    console.log(YEAR);
+    animateYearColor($('span.date'), black)
+    animateYearColor($(this), orange)
+  });
+});
+
+
+function generateTimelineFromYear(from,to){
+  for (i = from; i<=to; ++i){
+    $('#timeline').append(
+      '<div class="js-year">' +
+        '<article>' +
+          '<div class="inner">' +
+            '<span class="date" id=circle'+i+'>' +
+              '<br>' + 
+              '<span class="year">' + i +'</span>' + 
+            '</span>' + 
+        '</article>' +
+      '</div>'
+    );
+  }
+}
