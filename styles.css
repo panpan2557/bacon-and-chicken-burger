@@ -1,0 +1,54 @@
+#chartdiv {
+  position: absolute;  
+  width: 100%;
+  height: 100%;
+}
+
+.chartwrapper {
+  width: 70%;
+  position: absolute;
+  padding-bottom: 65%;
+  box-sizing: border-box;
+}
+
+#toggle-button {
+  position: absolute;
+  left: 85%;
+  top: 15px;
+}
+
+.absolute {
+  position: absolute;
+}
+
+.center-card {
+  margin: 0 auto;
+  float: none;
+  margin-bottom: 10px;
+}
+
+#news-card {
+  display: none;
+  margin-top: 5rem;
+}
+
+#stat-card {
+  margin-top: 5rem;
+}
+
+#map-panel {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+.grey {
+  color: grey;
+}
+
+.blue {
+  color: blue;
+}
+
+.purple {
+  color: rgb(204, 26, 180);
+}
