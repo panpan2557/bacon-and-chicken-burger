@@ -8,7 +8,7 @@ let map = AmCharts.makeChart( "chartdiv", {
 
   "dataProvider": {
     "map": "usaLow",
-    "areas": [ 
+    "areas": [
       {
       "id": "US-AL",
       "value": 4447100
@@ -204,6 +204,7 @@ let toggleButton = $('#toggle-button')
 let isOverlayedToggle = false
 let mapOpac = 0.5
 let overlayOpac = 0
+let overlayDisplay = 'none'
 let grey = '#6c757d'
 let green = '#28a745'
 toggleButton.click(function() {
@@ -213,24 +214,24 @@ toggleButton.click(function() {
     // change button color to green
     animateColor(toggleButton, green)
     mapPanel.css('pointer-events', 'auto')
+    overlayDisplay = 'none'
+    infoPanel.fadeOut(400)
   } else {
     overlayOpac = 1
     mapOpac = 0.5
     // change button color to gray
     animateColor(toggleButton, grey)
     mapPanel.css('pointer-events', 'none')
+    overlayDisplay = 'block'
+    infoPanel.fadeIn(400)
   }
-  infoPanel.animate({
-    duration: 400,
-    opacity: overlayOpac
-  })
   mapPanel.animate({
     duration: 400,
     opacity: mapOpac
   })
   isOverlayedToggle = !isOverlayedToggle
 })
-let testData = [ 
+let testData = [
   {
     "id": "US-AL",
     "value": 4447100
@@ -381,23 +382,95 @@ let testData = [
   }, {
     "id": "US-WY",
     "value": 493782
-  } 
+  }
 ]
 
 function updateMapData(map, data) {
-  map.dataProvider.areas = testData
+  let val = 0
+  let mappedData = Object.keys(data).map(key => {
+    val = data[key]
+    return {id: key, value: val}
+  })
+  console.log(mappedData)
+  map.dataProvider.areas = mappedData
   map.validateData()
 }
 
-function updateStatsMap() {
-
+let statNumCases = $('#stat-num-cases')
+let mNum = $('#m-num')
+let fNum = $('#fm-num')
+let highRankDiv = $('#high-rank')
+let lowRankDiv = $('#low-rank')
+let statYear = $('#stat-year')
+function createRanks(rankDiv, arr) {
+  rankDiv = rankDiv[0]
+  let i = 1
+  arr.forEach(function(item) {
+    let state = item[0]
+    let count = item[1]
+    state = state.split("-")[1]
+    let span = document.createElement('span')
+    span.setAttribute('class', 'grey')
+    span.textContent = '(' + count + ')'
+    let p = document.createElement("p")
+    p.setAttribute('class', 'm-1')
+    p.textContent = i + '. ' + state + ' '
+    p.appendChild(span)
+    rankDiv.appendChild(p)
+    i += 1
+  })
 }
 
-let testButton = $('#test-button')
-testButton.click(function() {
-  // update the heatmap data
-  updateMapData(map, testData)
-  // update stats and news
-  updateStatsMap()
-})
+console.log(data)
 
+// createRanks(highRankDiv, [['UL', 100], ['UT', 20]])
+
+function updateStatsData(data, year) {
+  statYear.text(year)
+  let heatmap = data[year].heatmap
+  let stats = data[year].stats
+  let totalCases = stats.totalCases
+  let fn = stats.F, mn = stats.M
+  let topHigh = stats.topHigh
+  let topLow = stats.topLow
+  statNumCases.text(totalCases)
+  mNum.text(mn)
+  fNum.text(fn)
+  createRanks(highRankDiv, topHigh)
+  createRanks(lowRankDiv, topLow)
+}
+
+updateStatsData(data, '2000')
+
+let testButton = $('#test-button')
+// template of click handler
+
+let testHeatmap = {
+  "US-AL": 3,
+  "US-AR": 11,
+  "US-AZ": 1,
+  "US-FL": 8,
+  "US-GA": 1,
+  "US-IL": 5,
+  "US-IN": 3,
+  "US-LA": 1,
+  "US-MD": 1,
+  "US-MO": 3,
+  "US-NC": 10,
+  "US-NV": 4,
+  "US-NY": 13,
+  "US-OH": 10,
+  "US-OR": 1,
+  "US-NULL": 7
+}
+
+// updateMapData(map, testHeatmap)
+
+testButton.click(function() {
+  let year = 2000
+  // update the heatmap data
+  updateMapData(map, testHeatmap)
+  console.log("test")
+  // update stats and news
+  updateStatsData(data, year)
+})

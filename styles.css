@@ -53,6 +53,10 @@
   color: rgb(204, 26, 180);
 }
 
+.db-attr {
+  height: 150px;
+}
+
 /* For timeline infographic */
 
 #timeline {
