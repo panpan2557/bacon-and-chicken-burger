@@ -1,179 +1,186 @@
 // setup marker svg
 let targetSVG = "M9,0C4.029,0,0,4.029,0,9s4.029,9,9,9s9-4.029,9-9S13.971,0,9,0z M9,15.93 c-3.83,0-6.93-3.1-6.93-6.93S5.17,2.07,9,2.07s6.93,3.1,6.93,6.93S12.83,15.93,9,15.93 M12.5,9c0,1.933-1.567,3.5-3.5,3.5S5.5,10.933,5.5,9S7.067,5.5,9,5.5 S12.5,7.067,12.5,9z";
 
+let YEAR = 0;
+
 let map = AmCharts.makeChart( "chartdiv", {
   "type": "map",
   "theme": "light",
   "colorSteps": 10,
-
   "dataProvider": {
     "map": "usaLow",
     "areas": [
       {
       "id": "US-AL",
-      "value": 4447100
+      "value": 0
     }, {
       "id": "US-AK",
-      "value": 626932
+      "value": 0
     }, {
       "id": "US-AZ",
-      "value": 5130632
+      "value": 0
     }, {
       "id": "US-AR",
-      "value": 2673400
+      "value": 0
     }, {
       "id": "US-CA",
-      "value": 33871648
+      "value": 0
     }, {
       "id": "US-CO",
-      "value": 4301261
+      "value": 0
     }, {
       "id": "US-CT",
-      "value": 3405565
+      "value": 0
     }, {
       "id": "US-DE",
-      "value": 783600
+      "value": 0
     }, {
       "id": "US-FL",
-      "value": 15982378
+      "value": 0
     }, {
       "id": "US-GA",
-      "value": 8186453
+      "value": 0
     }, {
       "id": "US-HI",
-      "value": 1211537
+      "value": 0
     }, {
       "id": "US-ID",
-      "value": 1293953
+      "value": 0
     }, {
       "id": "US-IL",
-      "value": 12419293
+      "value": 0
     }, {
       "id": "US-IN",
-      "value": 6080485
+      "value": 0
     }, {
       "id": "US-IA",
-      "value": 2926324
+      "value": 0
     }, {
       "id": "US-KS",
-      "value": 2688418
+      "value": 0
     }, {
       "id": "US-KY",
-      "value": 4041769
+      "value": 0
     }, {
       "id": "US-LA",
-      "value": 4468976
+      "value": 0
     }, {
       "id": "US-ME",
-      "value": 1274923
+      "value": 0
     }, {
       "id": "US-MD",
-      "value": 5296486
+      "value": 0
     }, {
       "id": "US-MA",
-      "value": 6349097
+      "value": 0
     }, {
       "id": "US-MI",
-      "value": 9938444
+      "value": 0
     }, {
       "id": "US-MN",
-      "value": 4919479
+      "value": 0
     }, {
       "id": "US-MS",
-      "value": 2844658
+      "value": 0
     }, {
       "id": "US-MO",
-      "value": 5595211
+      "value": 0
     }, {
       "id": "US-MT",
-      "value": 902195
+      "value": 0
     }, {
       "id": "US-NE",
-      "value": 1711263
+      "value": 0
     }, {
       "id": "US-NV",
-      "value": 1998257
+      "value": 0
     }, {
       "id": "US-NH",
-      "value": 1235786
+      "value": 0
     }, {
       "id": "US-NJ",
-      "value": 8414350
+      "value": 0
     }, {
       "id": "US-NM",
-      "value": 1819046
+      "value": 0
     }, {
       "id": "US-NY",
-      "value": 18976457
+      "value": 0
     }, {
       "id": "US-NC",
-      "value": 8049313
+      "value": 0
     }, {
       "id": "US-ND",
-      "value": 642200
+      "value": 0
     }, {
       "id": "US-OH",
-      "value": 11353140
+      "value": 0
     }, {
       "id": "US-OK",
-      "value": 3450654
+      "value": 0
     }, {
       "id": "US-OR",
-      "value": 3421399
+      "value": 0
     }, {
       "id": "US-PA",
-      "value": 12281054
+      "value": 0
     }, {
       "id": "US-RI",
-      "value": 1048319
+      "value": 0
     }, {
       "id": "US-SC",
-      "value": 4012012
+      "value": 0
     }, {
       "id": "US-SD",
-      "value": 754844
+      "value": 0
     }, {
       "id": "US-TN",
-      "value": 5689283
+      "value": 0
     }, {
       "id": "US-TX",
-      "value": 20851820
+      "value": 0
     }, {
       "id": "US-UT",
-      "value": 2233169
+      "value": 0
     }, {
       "id": "US-VT",
-      "value": 608827
+      "value": 0
     }, {
       "id": "US-VA",
-      "value": 7078515
+      "value": 0
     }, {
       "id": "US-WA",
-      "value": 5894121
+      "value": 0
     }, {
       "id": "US-WV",
-      "value": 1808344
+      "value": 0
     }, {
       "id": "US-WI",
-      "value": 5363675
+      "value": 0
     }, {
       "id": "US-WY",
-      "value": 493782
+      "value": 0
     } ],
     "images": [
-      {
-          "svgPath": targetSVG,
-          "zoomLevel": 5,
-          "scale": 0.5,
-          "title": "Vienna",
-          "latitude": 41.5359,
-          "longitude": 93.5711
-      }
+      // {
+      //     "svgPath": targetSVG,
+      //     "zoomLevel": 5,
+      //     "scale": 0.5,
+      //     "title": "Vienna",
+      //     "latitude": 41.5359,
+      //     "longitude": 93.5711
+      // }
     ]
   },
 
   "areasSettings": {
     "autoZoom": true
+  },
+
+  "ballonFunction": function(graphDataItem, graph) {
+    console.log(graphDataItem)
+    var value = graphDataItem.values.value;
+    return value + "<br>(Little)";
   },
 
   "valueLegend": {
@@ -197,6 +204,19 @@ function animateColor(el, color) {
   }, 400)
 }
 
+function animateYearColor(el, color) {
+  el.animate({
+    borderBottomColor: color,
+    borderLeftColor: color,
+    borderRightColor: color,
+    borderTopColor: color
+  }, 150)
+}
+
+const numberWithCommas = (x) => {
+  return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
+
 // setup event handler
 let infoPanel = $('#info-panel')
 let mapPanel = $('#map-panel')
@@ -207,6 +227,9 @@ let overlayOpac = 0
 let overlayDisplay = 'none'
 let grey = '#6c757d'
 let green = '#28a745'
+const black = '#00000'
+const orange = 'orange'
+
 toggleButton.click(function() {
   if (!isOverlayedToggle) {
     overlayOpac = 0
@@ -231,161 +254,10 @@ toggleButton.click(function() {
   })
   isOverlayedToggle = !isOverlayedToggle
 })
-let testData = [
-  {
-    "id": "US-AL",
-    "value": 4447100
-  }, {
-    "id": "US-AK",
-    "value": 626932
-  }, {
-    "id": "US-AZ",
-    "value": 5130632
-  }, {
-    "id": "US-AR",
-    "value": 2673400
-  }, {
-    "id": "US-CA",
-    "value": 33871648
-  }, {
-    "id": "US-CO",
-    "value": 4301261
-  }, {
-    "id": "US-CT",
-    "value": 3405565
-  }, {
-    "id": "US-DE",
-    "value": 783600
-  }, {
-    "id": "US-FL",
-    "value": 15982378
-  }, {
-    "id": "US-GA",
-    "value": 8186453
-  }, {
-    "id": "US-HI",
-    "value": 1211537
-  }, {
-    "id": "US-ID",
-    "value": 1293953
-  }, {
-    "id": "US-IL",
-    "value": 12419293
-  }, {
-    "id": "US-IN",
-    "value": 6080485
-  }, {
-    "id": "US-IA",
-    "value": 2926324
-  }, {
-    "id": "US-KS",
-    "value": 2688418
-  }, {
-    "id": "US-KY",
-    "value": 4041769
-  }, {
-    "id": "US-LA",
-    "value": 11111111
-  }, {
-    "id": "US-ME",
-    "value": 1274923
-  }, {
-    "id": "US-MD",
-    "value": 5296486
-  }, {
-    "id": "US-MA",
-    "value": 6349097
-  }, {
-    "id": "US-MI",
-    "value": 9938444
-  }, {
-    "id": "US-MN",
-    "value": 4919479
-  }, {
-    "id": "US-MS",
-    "value": 2844658
-  }, {
-    "id": "US-MO",
-    "value": 5595211
-  }, {
-    "id": "US-MT",
-    "value": 902195
-  }, {
-    "id": "US-NE",
-    "value": 1711263
-  }, {
-    "id": "US-NV",
-    "value": 1998257
-  }, {
-    "id": "US-NH",
-    "value": 1235786
-  }, {
-    "id": "US-NJ",
-    "value": 8414350
-  }, {
-    "id": "US-NM",
-    "value": 1819046
-  }, {
-    "id": "US-NY",
-    "value": 18976457
-  }, {
-    "id": "US-NC",
-    "value": 8049313
-  }, {
-    "id": "US-ND",
-    "value": 642200
-  }, {
-    "id": "US-OH",
-    "value": 11353140
-  }, {
-    "id": "US-OK",
-    "value": 3450654
-  }, {
-    "id": "US-OR",
-    "value": 3421399
-  }, {
-    "id": "US-PA",
-    "value": 12281054
-  }, {
-    "id": "US-RI",
-    "value": 1048319
-  }, {
-    "id": "US-SC",
-    "value": 4012012
-  }, {
-    "id": "US-SD",
-    "value": 754844
-  }, {
-    "id": "US-TN",
-    "value": 5689283
-  }, {
-    "id": "US-TX",
-    "value": 20851820
-  }, {
-    "id": "US-UT",
-    "value": 2233169
-  }, {
-    "id": "US-VT",
-    "value": 608827
-  }, {
-    "id": "US-VA",
-    "value": 7078515
-  }, {
-    "id": "US-WA",
-    "value": 5894121
-  }, {
-    "id": "US-WV",
-    "value": 1808344
-  }, {
-    "id": "US-WI",
-    "value": 5363675
-  }, {
-    "id": "US-WY",
-    "value": 493782
-  }
-]
 
 function updateMapData(map, data) {
+  console.log("in updateMapData")
+  data = data.heatmap
   let val = 0
   let mappedData = Object.keys(data).map(key => {
     val = data[key]
@@ -394,6 +266,9 @@ function updateMapData(map, data) {
   console.log(mappedData)
   map.dataProvider.areas = mappedData
   map.validateData()
+
+  console.log("update mapData")
+  console.log(map.dataProvider.areas)
 }
 
 let statNumCases = $('#stat-num-cases')
@@ -403,6 +278,7 @@ let highRankDiv = $('#high-rank')
 let lowRankDiv = $('#low-rank')
 let statYear = $('#stat-year')
 function createRanks(rankDiv, arr) {
+  rankDiv.empty()
   rankDiv = rankDiv[0]
   let i = 1
   arr.forEach(function(item) {
@@ -411,7 +287,7 @@ function createRanks(rankDiv, arr) {
     state = state.split("-")[1]
     let span = document.createElement('span')
     span.setAttribute('class', 'grey')
-    span.textContent = '(' + count + ')'
+    span.textContent = '(' + numberWithCommas(count) + ')'
     let p = document.createElement("p")
     p.setAttribute('class', 'm-1')
     p.textContent = i + '. ' + state + ' '
@@ -421,56 +297,56 @@ function createRanks(rankDiv, arr) {
   })
 }
 
-console.log(data)
-
 // createRanks(highRankDiv, [['UL', 100], ['UT', 20]])
+
+let testButton = $('#test-button')
+
+// updateMapData(map, testHeatmap)
+
+
+$(document).ready(function(){
+  let sortedKeys = Object.keys(data).sort()
+  let min = parseInt(sortedKeys[0])
+  let max = parseInt(sortedKeys[sortedKeys.length - 1])
+  generateTimelineFromYear(min, max)
+  $('span.date').click(function () {
+    idd = $(this).attr('id');
+    YEAR = idd.slice(6) + '';
+    let yearData = data[YEAR]
+    updateMapData(map, yearData)
+    updateStatsData(yearData, YEAR)
+    animateYearColor($('span.date'), black)
+    animateYearColor($(this), orange)
+  });
+});
 
 function updateStatsData(data, year) {
   statYear.text(year)
-  let heatmap = data[year].heatmap
-  let stats = data[year].stats
+  let heatmap = data.heatmap
+  let stats = data.stats
   let totalCases = stats.totalCases
   let fn = stats.F, mn = stats.M
   let topHigh = stats.topHigh
   let topLow = stats.topLow
-  statNumCases.text(totalCases)
-  mNum.text(mn)
-  fNum.text(fn)
+  statNumCases.text(numberWithCommas(totalCases))
+  mNum.text(numberWithCommas(mn))
+  fNum.text(numberWithCommas(fn))
   createRanks(highRankDiv, topHigh)
   createRanks(lowRankDiv, topLow)
 }
 
-updateStatsData(data, '2000')
-
-let testButton = $('#test-button')
-// template of click handler
-
-let testHeatmap = {
-  "US-AL": 3,
-  "US-AR": 11,
-  "US-AZ": 1,
-  "US-FL": 8,
-  "US-GA": 1,
-  "US-IL": 5,
-  "US-IN": 3,
-  "US-LA": 1,
-  "US-MD": 1,
-  "US-MO": 3,
-  "US-NC": 10,
-  "US-NV": 4,
-  "US-NY": 13,
-  "US-OH": 10,
-  "US-OR": 1,
-  "US-NULL": 7
+function generateTimelineFromYear(from,to){
+  for (i = from; i<=to; ++i){
+    $('#timeline').append(
+      '<div class="js-year">' +
+        '<article>' +
+          '<div class="inner">' +
+            '<span class="date" id=circle'+i+'>' +
+              '<br>' +
+              '<span class="year">' + i +'</span>' +
+            '</span>' +
+        '</article>' +
+      '</div>'
+    );
+  }
 }
-
-// updateMapData(map, testHeatmap)
-
-testButton.click(function() {
-  let year = 2000
-  // update the heatmap data
-  updateMapData(map, testHeatmap)
-  console.log("test")
-  // update stats and news
-  updateStatsData(data, year)
-})
