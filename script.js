@@ -177,7 +177,7 @@ let map = AmCharts.makeChart( "chartdiv", {
     "autoZoom": true
   },
 
-  "ballonFunction": function(graphDataItem, graph) {
+  "ballonLabelFunction": function(graphDataItem, graph) {
     console.log(graphDataItem)
     var value = graphDataItem.values.value;
     return value + "<br>(Little)";
@@ -290,7 +290,8 @@ function createRanks(rankDiv, arr) {
     span.textContent = '(' + numberWithCommas(count) + ')'
     let p = document.createElement("p")
     p.setAttribute('class', 'm-1')
-    p.textContent = i + '. ' + state + ' '
+    let stateFullName = statesMap[state]
+    p.textContent = i + '. ' + stateFullName + ' '
     p.appendChild(span)
     rankDiv.appendChild(p)
     i += 1
