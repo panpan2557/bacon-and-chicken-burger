@@ -174,25 +174,23 @@ let map = AmCharts.makeChart( "chartdiv", {
   },
 
   "areasSettings": {
-    "autoZoom": true
-  },
-
-  "ballonLabelFunction": function(graphDataItem, graph) {
-    console.log(graphDataItem)
-    var value = graphDataItem.values.value;
-    return value + "<br>(Little)";
+    "autoZoom": true,
+    "balloonText": "[[title]]: [[value]]"
   },
 
   "valueLegend": {
-    "right": 10,
-    "minValue": "little",
-    "maxValue": "a lot!"
+    "right": 80,
+    "bottom": 100,
+    "minValue": "Little cases",
+    "maxValue": "A lot of cases"
   },
 
   "export": {
     "enabled": true
   }
 });
+
+console.log(map)
 
 function animateColor(el, color) {
   el.animate({

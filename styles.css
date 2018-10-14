@@ -13,7 +13,7 @@
 
 #toggle-button {
   position: absolute;
-  left: 85%;
+  left: 80%;
   top: 15px;
 }
 
@@ -73,10 +73,10 @@
 }
 
 .vl {
-  border-left: 6px solid black;
+  border-left: 8px solid black;
   height: 97%;
   position: absolute;
-  left: 50%;
+  left: 56%;
   margin-left: -3px;
   top: 0;
 }
