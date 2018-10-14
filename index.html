@@ -17,19 +17,16 @@
                     </div>
                     <!-- <button id="test-button" class="btn btn-primary"></button> -->
                 </div>
+
                 <div id="all-info-panel" class="col-sm-10">
                     <div id="map-panel" class="w-100 chartwrapper">
                         <div id="chartdiv"></div>
+                        <div id="acpc-chart-div"></div>
                     </div>
-                    <div id="overlay-panel" class="absolute w-100">
-                        <button id="toggle-button" type="button" class="btn btn-secondary">Toggle Info Panel</button>
+                    <button id="toggle-button" type="button" class="btn btn-secondary">Toggle Info Panel</button>
+                    <button id="map-switch-button" type="button" class="btn btn-secondary" style="">Switch to <b>Average charges Per Case (ACPC)</b></button>
+                    <div id="overlay-panel" class="absolute h-100 w-100">
                         <div id="info-panel">
-                            <div id="news-card" class="card center-card w-75">
-                                <img class="card-img-top" src="http://jmd.im/wp-content/uploads/2017/06/blackx_thumbnail.jpg" alt="Card image cap">
-                                <div class="card-body">
-                                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                                </div>
-                            </div>
                             <div id="stat-card" class="card center-card w-75">
                                 <div class="card-body bg-light">
                                     <h1 class="card-title">Statistics: <span id="stat-year"></span></h1>
@@ -71,7 +68,33 @@
                                             </div>
                                         </div>
                                     </div>
+
+                                    <div class="row mt-3">
+                                        <div class="col-sm-6">
+                                            <div class="bg-white p-3 d-flex justify-content-center align-items-center">
+                                                <div>
+                                                    <h4>Highest average charge / case</h4>
+                                                    <div id="high-rank-acpc"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <div class="bg-white p-3 d-flex justify-content-center align-items-center">
+                                                <div>
+                                                    <h4>Lowest average charge / case</h4>
+                                                    <div id="low-rank-acpc"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
+                            </div>
+                            <div id="news-card" class="card center-card w-75 mt-3">
+                                <!-- <img class="card-img-top" src="http://jmd.im/wp-content/uploads/2017/06/blackx_thumbnail.jpg" alt="Card image cap">
+                                <div class="card-body">
+                                    <h4 class="card-title">Test</h4>
+                                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                                </div> -->
                             </div>
                         </div>
                     </div>
@@ -90,6 +113,7 @@
         <script src="node_modules/jquery-color/jquery.color.js"></script>
         <script src="giant_data_file.js"></script>
         <script src="statesMap.js"></script>
+        <script src="news.js"></script>
         <script type='text/javascript' src='script.js'></script>
     </body>
 </html>

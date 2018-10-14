@@ -4,6 +4,13 @@
   height: 100%;
 }
 
+#acpc-chart-div {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  display: none;
+}
+
 .chartwrapper {
   width: 70%;
   position: absolute;
@@ -15,6 +22,15 @@
   position: absolute;
   left: 80%;
   top: 15px;
+  z-index: 5;
+}
+
+#map-switch-button {
+  position: absolute;
+  left: 0.76px;
+  bottom: 15px;
+  z-index: 5;
+  display: none;
 }
 
 .absolute {
@@ -29,7 +45,6 @@
 
 #news-card {
   display: none;
-  margin-top: 5rem;
 }
 
 #stat-card {
@@ -55,6 +70,12 @@
 
 .db-attr {
   height: 150px;
+}
+
+#overlay-panel {
+  overflow: scroll;
+  z-index: 1;
+  /* background-color: rgba(0, 0, 0, 0.4); */
 }
 
 /* For timeline infographic */
@@ -133,6 +154,7 @@
   width:100%;
   height:100%;
   overflow:scroll;
+  overflow-x: hidden;
   text-align: center;
 }
 

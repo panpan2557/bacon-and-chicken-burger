@@ -1,8 +1,8 @@
 // setup marker svg
 let targetSVG = "M9,0C4.029,0,0,4.029,0,9s4.029,9,9,9s9-4.029,9-9S13.971,0,9,0z M9,15.93 c-3.83,0-6.93-3.1-6.93-6.93S5.17,2.07,9,2.07s6.93,3.1,6.93,6.93S12.83,15.93,9,15.93 M12.5,9c0,1.933-1.567,3.5-3.5,3.5S5.5,10.933,5.5,9S7.067,5.5,9,5.5 S12.5,7.067,12.5,9z";
 
-let YEAR = 0;
-
+let YEAR = 0
+let yearData = {}
 let map = AmCharts.makeChart( "chartdiv", {
   "type": "map",
   "theme": "light",
@@ -181,14 +181,15 @@ let map = AmCharts.makeChart( "chartdiv", {
   "valueLegend": {
     "right": 80,
     "bottom": 100,
-    "minValue": "Little cases",
-    "maxValue": "A lot of cases"
+    "minValue": "Low cases",
+    "maxValue": "Many cases"
   },
 
   "export": {
     "enabled": true
   }
 });
+let mapDiv = $('#chartdiv')
 
 console.log(map)
 
@@ -199,7 +200,7 @@ function animateColor(el, color) {
     borderRightColor: color,
     borderTopColor: color,
     backgroundColor: color
-  }, 400)
+  }, 200)
 }
 
 function animateYearColor(el, color) {
@@ -217,16 +218,21 @@ const numberWithCommas = (x) => {
 
 // setup event handler
 let infoPanel = $('#info-panel')
+let overlayPanel = $('#overlay-panel')
 let mapPanel = $('#map-panel')
 let toggleButton = $('#toggle-button')
+let mapSwitchButton = $('#map-switch-button')
+let newsCard = $('#news-card')
 let isOverlayedToggle = false
 let mapOpac = 0.5
 let overlayOpac = 0
-let overlayDisplay = 'none'
 let grey = '#6c757d'
 let green = '#28a745'
 const black = '#00000'
 const orange = 'orange'
+let isNumberOfCases = true
+let acpcColor = '#DBC08B'
+let acpcSolidColor = '#FFAA00'
 
 toggleButton.click(function() {
   if (!isOverlayedToggle) {
@@ -235,27 +241,50 @@ toggleButton.click(function() {
     // change button color to green
     animateColor(toggleButton, green)
     mapPanel.css('pointer-events', 'auto')
-    overlayDisplay = 'none'
-    infoPanel.fadeOut(400)
+    overlayPanel.fadeOut(200)
+    mapSwitchButton.fadeIn(200)
   } else {
     overlayOpac = 1
     mapOpac = 0.5
     // change button color to gray
     animateColor(toggleButton, grey)
     mapPanel.css('pointer-events', 'none')
-    overlayDisplay = 'block'
-    infoPanel.fadeIn(400)
+    overlayPanel.fadeIn(200)
+    mapSwitchButton.fadeOut(200)
   }
   mapPanel.animate({
-    duration: 400,
+    duration: 200,
     opacity: mapOpac
   })
   isOverlayedToggle = !isOverlayedToggle
 })
 
+mapSwitchButton.click(function() {
+  if (isNumberOfCases) {
+    // switch to acpc by changing the data & color
+    $(this).html("Switch to <b>Number of Cases</b>")
+    $(this).css('left', 0.69)
+    map.areasSettings.color = acpcColor
+    map.areasSettings.colorSolid = acpcSolidColor
+    map.areasSettings.balloonText = "[[title]]: $[[value]]"
+    map.valueLegend.minValue = "Low ACPC"
+    map.valueLegend.maxValue = "High ACPC"
+    updateMapData(map, yearData.heatmapAcpc)
+  } else {
+    $(this).html("Switch to <b>Average charges Per Case (ACPC)</b>")
+    $(this).css('left', 0.76)
+    map.areasSettings.color = '#67b7dc'
+    map.areasSettings.colorSolid = '#003767'
+    map.areasSettings.balloonText = "[[title]]: [[value]]"
+    map.valueLegend.minValue = "Low cases"
+    map.valueLegend.maxValue = "Many cases"
+    updateMapData(map, yearData.heatmap)
+  }
+  isNumberOfCases = !isNumberOfCases
+})
+
 function updateMapData(map, data) {
   console.log("in updateMapData")
-  data = data.heatmap
   let val = 0
   let mappedData = Object.keys(data).map(key => {
     val = data[key]
@@ -264,9 +293,26 @@ function updateMapData(map, data) {
   console.log(mappedData)
   map.dataProvider.areas = mappedData
   map.validateData()
+}
 
-  console.log("update mapData")
-  console.log(map.dataProvider.areas)
+function updateStatsData(data, year) {
+  statYear.text(year)
+  let heatmap = data.heatmap
+  let stats = data.stats
+  let totalCases = stats.totalCases
+  let fn = stats.F, mn = stats.M
+  let fp = (fn / (fn + mn) * 100).toFixed(1), mp = (mn / (fn + mn) * 100).toFixed(1)
+  let topHigh = stats.topHigh
+  let topLow = stats.topLow
+  let topHighAcpc = stats.topHighAcpc
+  let topLowAcpc = stats.topLowAcpc
+  statNumCases.text(numberWithCommas(totalCases))
+  mNum.text(numberWithCommas(mn) + " (" + fp + "%)")
+  fNum.text(numberWithCommas(fn) + " (" + mp + "%)")
+  createRanks(highRankDiv, topHigh)
+  createRanks(lowRankDiv, topLow)
+  createRanksAcpc(highRankAcpcDiv, topHighAcpc)
+  createRanksAcpc(lowRankAcpcDiv, topLowAcpc)
 }
 
 let statNumCases = $('#stat-num-cases')
@@ -274,7 +320,10 @@ let mNum = $('#m-num')
 let fNum = $('#fm-num')
 let highRankDiv = $('#high-rank')
 let lowRankDiv = $('#low-rank')
+let highRankAcpcDiv = $('#high-rank-acpc')
+let lowRankAcpcDiv = $('#low-rank-acpc')
 let statYear = $('#stat-year')
+
 function createRanks(rankDiv, arr) {
   rankDiv.empty()
   rankDiv = rankDiv[0]
@@ -296,12 +345,69 @@ function createRanks(rankDiv, arr) {
   })
 }
 
-// createRanks(highRankDiv, [['UL', 100], ['UT', 20]])
+function createRanksAcpc(rankDiv, arr) {
+  rankDiv.empty()
+  rankDiv = rankDiv[0]
+  let i = 1
+  arr.forEach(function(item) {
+    let state = item[0]
+    let count = item[1]
+    state = state.split("-")[1]
+    let span = document.createElement('span')
+    span.setAttribute('class', 'grey')
+    span.textContent = '($' + numberWithCommas(count.toFixed(2)) + ')'
+    let p = document.createElement("p")
+    p.setAttribute('class', 'm-1')
+    let stateFullName = statesMap[state]
+    p.textContent = i + '. ' + stateFullName + ' '
+    p.appendChild(span)
+    rankDiv.appendChild(p)
+    i += 1
+  })
+}
 
-let testButton = $('#test-button')
+function updateNewsData(year) {
+  newsCard.html("")
+  console.log(year)
+  console.log(year in news)
+  if (year in news) {
+    // show + update news Panel
+    let yearNews = news[year]
+    console.log(yearNews)
+    newsCard.css('display', 'block')
+    let img = document.createElement('img')
+    img.setAttribute('class', 'card-img-top')
+    img.setAttribute('src', yearNews['img'])
+    let overlayDiv = document.createElement('div')
+    overlayDiv.setAttribute('class', 'card-img-overlay')
+    let newsh2 = document.createElement('h2')
+    let newsSpan = document.createElement('span')
+    newsSpan.setAttribute('class', 'badge badge-primary')
+    newsSpan.textContent = "News"
 
-// updateMapData(map, testHeatmap)
+    newsh2.appendChild(newsSpan)
+    overlayDiv.appendChild(newsh2)
 
+    let textDiv = document.createElement('div')
+    textDiv.setAttribute('class', 'card-body')
+    let header = document.createElement('h4')
+    header.setAttribute('class', 'card-title')
+    header.textContent = yearNews['headline']
+    let p = document.createElement('p')
+    p.setAttribute('class', 'card-text')
+    p.textContent = yearNews['description']
+
+    textDiv.appendChild(header)
+    textDiv.appendChild(p)
+
+    newsCard[0].appendChild(img)
+    newsCard[0].appendChild(overlayDiv)
+    newsCard[0].appendChild(textDiv)
+  } else {
+    // hide and clear
+    newsCard.css('display', 'none')
+  }
+}
 
 $(document).ready(function(){
   let sortedKeys = Object.keys(data).sort()
@@ -311,28 +417,18 @@ $(document).ready(function(){
   $('span.date').click(function () {
     idd = $(this).attr('id');
     YEAR = idd.slice(6) + '';
-    let yearData = data[YEAR]
-    updateMapData(map, yearData)
+    yearData = data[YEAR]
+    if (isNumberOfCases) {
+      updateMapData(map, yearData.heatmap)
+    } else {
+      updateMapData(map, yearData.heatmapAcpc)
+    }
     updateStatsData(yearData, YEAR)
+    updateNewsData(YEAR)
     animateYearColor($('span.date'), black)
     animateYearColor($(this), orange)
   });
 });
-
-function updateStatsData(data, year) {
-  statYear.text(year)
-  let heatmap = data.heatmap
-  let stats = data.stats
-  let totalCases = stats.totalCases
-  let fn = stats.F, mn = stats.M
-  let topHigh = stats.topHigh
-  let topLow = stats.topLow
-  statNumCases.text(numberWithCommas(totalCases))
-  mNum.text(numberWithCommas(mn))
-  fNum.text(numberWithCommas(fn))
-  createRanks(highRankDiv, topHigh)
-  createRanks(lowRankDiv, topLow)
-}
 
 function generateTimelineFromYear(from,to){
   for (i = from; i<=to; ++i){
