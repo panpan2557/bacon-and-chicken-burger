@@ -295,12 +295,22 @@ function updateMapData(map, data) {
   map.validateData()
 }
 
+let statNumCases = $('#stat-num-cases')
+let mNum = $('#m-num')
+let fNum = $('#fm-num')
+let highRankDiv = $('#high-rank')
+let lowRankDiv = $('#low-rank')
+let highRankAcpcDiv = $('#high-rank-acpc')
+let lowRankAcpcDiv = $('#low-rank-acpc')
+let statYear = $('#stat-year')
+
 function updateStatsData(data, year) {
   statYear.text(year)
   let heatmap = data.heatmap
   let stats = data.stats
   let totalCases = stats.totalCases
   let fn = stats.F, mn = stats.M
+  console.log(stats.F + " " + stats.M)
   let fp = (fn / (fn + mn) * 100).toFixed(1), mp = (mn / (fn + mn) * 100).toFixed(1)
   let topHigh = stats.topHigh
   let topLow = stats.topLow
@@ -314,15 +324,6 @@ function updateStatsData(data, year) {
   createRanksAcpc(highRankAcpcDiv, topHighAcpc)
   createRanksAcpc(lowRankAcpcDiv, topLowAcpc)
 }
-
-let statNumCases = $('#stat-num-cases')
-let mNum = $('#m-num')
-let fNum = $('#fm-num')
-let highRankDiv = $('#high-rank')
-let lowRankDiv = $('#low-rank')
-let highRankAcpcDiv = $('#high-rank-acpc')
-let lowRankAcpcDiv = $('#low-rank-acpc')
-let statYear = $('#stat-year')
 
 function createRanks(rankDiv, arr) {
   rankDiv.empty()
