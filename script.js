@@ -307,8 +307,8 @@ function updateStatsData(data, year) {
   let topHighAcpc = stats.topHighAcpc
   let topLowAcpc = stats.topLowAcpc
   statNumCases.text(numberWithCommas(totalCases))
-  mNum.text(numberWithCommas(mn) + " (" + fp + "%)")
-  fNum.text(numberWithCommas(fn) + " (" + mp + "%)")
+  mNum.text(numberWithCommas(mn) + " (" + mp + "%)")
+  fNum.text(numberWithCommas(fn) + " (" + fp + "%)")
   createRanks(highRankDiv, topHigh)
   createRanks(lowRankDiv, topLow)
   createRanksAcpc(highRankAcpcDiv, topHighAcpc)
