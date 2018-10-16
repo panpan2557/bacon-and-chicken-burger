@@ -202,7 +202,7 @@ $(document).ready(function(){
   const grey = '#6c757d'
   const green = '#28a745'
   const black = '#00000'
-  const orange = 'orange'
+  // const orange = 'acpcSolidColor'
   const acpcColor = '#DBC08B'
   const acpcSolidColor = '#FFAA00'
   const casesColor = '#67b7dc'
@@ -237,7 +237,8 @@ $(document).ready(function(){
       opacity: mapOpac
     })
     isOverlayedToggle = !isOverlayedToggle
-  })
+  });
+
   mapSwitchButton.click(function() {
     if (isNumberOfCases) {
       // switch to acpc by changing the data & color
@@ -258,22 +259,7 @@ $(document).ready(function(){
       updateMapData(map, currentYearData.heatmap)
     }
     isNumberOfCases = !isNumberOfCases
-  })
-  $('span.date').click(function () {
-    console.log("clicked")
-    let id = $(this).attr('id')
-    currentYear = id.slice(6) + ''
-    currentYearData = data[currentYear]
-    if (isNumberOfCases) {
-      updateMapData(map, currentYearData.heatmap)
-    } else {
-      updateMapData(map, currentYearData.heatmapAcpc)
-    }
-    updateStatsData(currentYearData, currentYear)
-    updateNewsData(currentYear)
-    animateYearColor($('span.date'), black)
-    animateYearColor($(this), orange)
-  })
+  });
 
   // add commas to the input number (from stackoverflow!)
   const numberWithCommas = (x) => {
@@ -415,4 +401,20 @@ $(document).ready(function(){
   let min = parseInt(sortedKeys[0])
   let max = parseInt(sortedKeys[sortedKeys.length - 1])
   generateTimelineFromYear(min, max)
+
+  const years = $('span.date')
+  years.click(function () {
+    let id = $(this).attr('id')
+    currentYear = id.slice(6) + ''
+    currentYearData = data[currentYear]
+    if (isNumberOfCases) {
+      updateMapData(map, currentYearData.heatmap)
+    } else {
+      updateMapData(map, currentYearData.heatmapAcpc)
+    }
+    updateStatsData(currentYearData, currentYear)
+    updateNewsData(currentYear)
+    animateYearColor(years, black)
+    animateYearColor($(this), acpcSolidColor)
+  });
 });
